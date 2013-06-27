@@ -18,7 +18,7 @@ module Mongo::Rails::Instrumentation
       mongo_rt_before_render = LogSubscriber.reset_runtime
       runtime = super
       mongo_rt_after_render = LogSubscriber.reset_runtime
-      self.grit_calls = LogSubscriber.reset_calls
+      self.mongo_calls = LogSubscriber.reset_count
       self.mongo_runtime = mongo_rt_before_render + mongo_rt_after_render
       runtime - mongo_rt_after_render
     end

@@ -25,8 +25,8 @@ class Mongo::Rails::Instrumentation::LogSubscriber < ActiveSupport::LogSubscribe
     rt
   end
 
-  def self.reset_calls
-    c, self.calls = calls, 0
+  def self.reset_count
+    c, self.count = count, 0
     c
   end
 
