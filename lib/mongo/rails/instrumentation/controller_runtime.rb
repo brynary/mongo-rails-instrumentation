@@ -32,7 +32,7 @@ module Mongo::Rails::Instrumentation
     module ClassMethods
       def log_process_action(payload)
         messages, mongo_runtime = super, payload[:mongo_runtime]
-        messages << ("Mongo: %.1fms" % mongo_runtime.to_f) if mongo_runtime
+        messages << ("Mongo: %d/%.1fms" % [payload[:mongo_calls], mongo_runtime.to_f]) if mongo_runtime
         messages
       end
     end
