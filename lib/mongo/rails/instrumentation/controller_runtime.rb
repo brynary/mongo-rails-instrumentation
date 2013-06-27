@@ -7,6 +7,7 @@ module Mongo::Rails::Instrumentation
     protected
 
     attr_internal :mongo_runtime
+    attr_internal :mongo_calls
 
     def process_action(action, *args)
       LogSubscriber.reset_runtime
@@ -17,12 +18,14 @@ module Mongo::Rails::Instrumentation
       mongo_rt_before_render = LogSubscriber.reset_runtime
       runtime = super
       mongo_rt_after_render = LogSubscriber.reset_runtime
+      self.grit_calls = LogSubscriber.reset_calls
       self.mongo_runtime = mongo_rt_before_render + mongo_rt_after_render
       runtime - mongo_rt_after_render
     end
 
     def append_info_to_payload(payload)
       super
+      payload[:mongo_calls] = mongo_calls
       payload[:mongo_runtime] = mongo_runtime
     end
 

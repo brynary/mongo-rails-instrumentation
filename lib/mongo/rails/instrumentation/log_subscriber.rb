@@ -21,8 +21,13 @@ class Mongo::Rails::Instrumentation::LogSubscriber < ActiveSupport::LogSubscribe
   end
 
   def self.reset_runtime
-    rt, self.runtime, self.count = runtime, 0, 0
+    rt, self.runtime = runtime, 0
     rt
+  end
+
+  def self.reset_calls
+    c, self.calls = calls, 0
+    c
   end
 
   def mongo(event)
